@@ -8,7 +8,7 @@ import HostBox from './components/hostbox'
 function init () {
   let app = document.querySelectorAll('[data-section="app"]')[0];
   ReactDOM.render(
-    <HostBox url="/api/hosts" pollInterval={2000}  data={[]}/>,
+    <HostBox url="/api/hosts" pollInterval={2000}  data={{"hosts" : []}}/>,
     app
   );
 }
