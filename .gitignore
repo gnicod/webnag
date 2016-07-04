@@ -8,6 +8,7 @@ npm-debug.log
 # Compiled files don't belong in git
 static
 
+*.pyc
 # swap
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
