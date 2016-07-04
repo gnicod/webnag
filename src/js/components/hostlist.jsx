@@ -1,19 +1,25 @@
 import React from 'react';
-import Host from '../components/host'
+import { Router, Route, Link, browserHistory } from 'react-router'
+import HostItem from '../components/hostitem'
 
 export default React.createClass({
     render: function() {
         var hostNodes = this.props.data.hosts.map(function(host) {
             return (
-                <Host host_name={host.host_name} address={host.address}>
-                    {host.host_name}
-                </Host>
+                <div>
+                    <Link to={`/host/${host.host_name}`}>
+                        <HostItem host_name={host.host_name} address={host.address}>
+                            {host.host_name}
+                        </HostItem>
+                    </Link>
+                </div>
             );
         });
         return (
-            <div className="commentList">
+            <ul className="collection with-header">
+                <li className="collection-header"><h4>Hosts</h4></li>
                 {hostNodes}
-            </div>
+            </ul>
         );
     }
 });

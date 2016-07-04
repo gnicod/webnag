@@ -20,12 +20,10 @@ export default React.createClass({
 	},
 	componentDidMount: function() {
 		this.loadHostsFromServer();
-		setInterval(this.loadHostsFromServer, this.props.pollInterval);
 	},
 	render: function() {
 		return (
 			<div className="hostBox">
-				<h1>Hosts</h1>
 				<HostList data={this.state.data} />
 			</div>
 		);

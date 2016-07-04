@@ -2,7 +2,10 @@
 var gulp = require('gulp');
 var webpack = require('webpack');
 var watch = require('gulp-watch');
+var concat = require('gulp-concat');
 var less = require('gulp-less');
+var merge = require('merge-stream');
+var minify = require('gulp-minify-css');
 var autoprefix = new (require('less-plugin-autoprefix'))({ browsers: ['last 2 versions'] });
 var cssMinify = require('gulp-minify-css');
 
@@ -50,26 +53,41 @@ gulp.task('js:watch', function () {
 });
 
 gulp.task('css:compile', function () {
-  return gulp.src('./src/less/main.less')
-    .pipe(less({
-      paths: ['.', './node_modules'],
-      plugins: [autoprefix]
-    }))
-    .pipe(cssMinify())
-    .pipe(gulp.dest('./static/css'))
+    var lessStream =  gulp.src(['./src/less/main.less'])
+        .pipe(less({
+            paths: ['.', './node_modules'],
+            plugins: [autoprefix]
+        }))
+        .pipe(concat('less-files.less'));
+    var cssStream = gulp.src(['./node_modules/**/dist/css/*.min.css'])
+        .pipe(concat('css-files.css'))
+    ;
+    var mergedStream = merge(lessStream, cssStream)
+        .pipe(concat('styles.css'))
+        .pipe(minify())
+        .pipe(gulp.dest('./static/css'))
+    return mergedStream;
 });
 
 gulp.task('css:watch', function () {
-  return gulp.src('./src/less/main.less')
-    .pipe(watch('./src/less/**/*'))
-    .pipe(less({
-      paths: ['.', './node_modules'],
-      plugins: [autoprefix]
-    }))
-    .pipe(cssMinify())
-    .pipe(gulp.dest('./static/css'))
+    var lessStream =  gulp.src(['./src/less/main.less'])
+        .pipe(watch('./src/less/**/*'))
+        .pipe(less({
+            paths: ['.', './node_modules'],
+            plugins: [autoprefix]
+        }))
+        .pipe(concat('less-files.less'));
+    var cssStream = gulp.src(['./node_modules/**/dist/css/*.min.css'])
+        .pipe(concat('css-files.css'))
+    ;
+    var mergedStream = merge(lessStream, cssStream)
+        .pipe(concat('styles.css'))
+        .pipe(minify())
+        .pipe(gulp.dest('./static/css'))
+    return mergedStream;
 });
 
 gulp.task('compile', ['js:compile', 'css:compile']);
 gulp.task('prod',    ['js:prod', 'css:compile']);
-gulp.task('watch',   ['js:watch', 'css:watch']);
+//gulp.task('watch',   ['js:watch', 'css:watch']);
+gulp.task('watch',   ['js:watch']);
