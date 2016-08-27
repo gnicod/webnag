@@ -31,6 +31,7 @@ def get_one_hostgroup(hostgroup):
     hostgroups = Model.Hostgroup.objects.filter(hostgroup_name=hostgroup)
     if len(hostgroups) > 0:
         hostgroup = hostgroups[0]
+        print hostgroup
         return format_hostgroup(hostgroup)
 
 class HostGroups(Resource):

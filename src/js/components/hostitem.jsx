@@ -1,15 +1,24 @@
 import React from 'react';
+import { Router, Route, Link, browserHistory } from 'react-router'
 
 export default React.createClass({
     render: function () {
         return (
-            <li className="collection-item avatar">
-              <i className="material-icons circle">settings_input_component</i>
-              <span className="title">
-                  {this.props.host_name}
-              </span>
-              <p> {this.props.address} </p>
-            </li>
+            <tr>
+                <td className="content">
+                    <Link to={`/host/${this.props.host.host_name}`}>
+                        <h4 className="ui image header">
+                            {this.props.host.host_name}
+                            <div className="sub header">{this.props.host.address} </div>
+                        </h4>
+                    </Link>
+                </td>
+                <td>
+                    {this.props.host.hostgroups.map(function(object, i){
+                        return <Link to={`/hostgroup/${object}`}><div className="ui basic label">{object}</div></Link>;
+                    })}
+                </td>
+            </tr>
         );
     }
 });

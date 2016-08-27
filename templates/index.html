@@ -5,7 +5,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
         <title>{{ title }}</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,31 +14,24 @@
         <link rel="stylesheet" href="{{
         url_for('static', filename='css/styles.css')
         }}">
+        <link rel="stylesheet" href="{{
+        url_for('static', filename='css/semantic.min.css')
+        }}">
     </head>
-    <body>
-        <header>
-        <nav>
+    <body class="">
+        <div class="ui vertical sticky menu fixed top" style=" height: 100%; box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); ">
             <ul id="slide-out" class="side-nav fixed">
-                <li class="bold"><a href="/" class="waves-effect waves-teal">Home</a></li>
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li>
-                            <a class="collapsible-header waves-effect waves-teal">Dropdown<i class="mdi-navigation-arrow-drop-down"></i></a>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li><a href="#!">First</a></li>
-                                    <li><a href="#!">Second</a></li>
-                                    <li><a href="#!">Third</a></li>
-                                    <li><a href="#!">Fourth</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
+                <div class="item">
+                    <a href="/" class="waves-effect waves-teal">Home</a>
+                </div>
+                <div class="header">Services</div>
+                <div class="menu">
+                    <a class="item" href="/hosts">Hosts</a>
+                    <a class="item" href="/hostgroups">Hostgroups</a>
+                </div>
             </ul>
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        </nav>
-        </header>
+        </div>
         <main class="container">
         <div class="row">
         <section data-section="app" id="app"></section>
@@ -48,6 +40,9 @@
         <div id="content"></div>
         <script async src="{{
         url_for('static', filename='js/main.bundle.js')
+        }}"></script>
+        <script async src="{{
+        url_for('static', filename='js/semantic.min.js')
         }}"></script>
     </body>
 </html>

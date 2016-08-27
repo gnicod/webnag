@@ -59,9 +59,9 @@ gulp.task('css:compile', function () {
             plugins: [autoprefix]
         }))
         .pipe(concat('less-files.less'));
-    var cssStream = gulp.src(['./node_modules/**/dist/css/*.min.css'])
-        .pipe(concat('css-files.css'))
-    ;
+
+    var cssStream = gulp.src(["src/css/main.css"]);
+
     var mergedStream = merge(lessStream, cssStream)
         .pipe(concat('styles.css'))
         .pipe(minify())
